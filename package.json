@@ -9,6 +9,7 @@
   "author": "bytesolutions",
   "license": "ISC",
   "dependencies": {
+    "cors": "^2.8.5",
     "module": "^1.2.5"
   }
 }
