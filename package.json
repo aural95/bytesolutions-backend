@@ -1,0 +1,14 @@
+{
+  "name": "bytesolutions_backend",
+  "version": "1.0.0",
+  "description": "bytesolutions backend",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bytesolutions",
+  "license": "ISC",
+  "dependencies": {
+    "module": "^1.2.5"
+  }
+}
