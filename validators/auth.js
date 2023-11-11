@@ -12,5 +12,13 @@ const validatorRegister = [
     }
 ]
 
+const validatorLogin = [
+    check("email").exists().notEmpty().isEmail().isLength({min:3,max:99}),
+    check("password").exists().notEmpty(),
+    (req,res,next)=>{
+        validateResults(req,res,next);
+    }
+]
 
-module.exports = {validatorRegister};
+
+module.exports = {validatorRegister, validatorLogin};

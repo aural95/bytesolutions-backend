@@ -23,4 +23,32 @@ const registerController = async (req, res) =>{
     }
 }
 
-module.exports = {registerController}
+const loginController = async (req,res)=>{
+    try {
+        req = matchedData(req);
+        const user = await usersModel.findOne({email:req.email}).select('password name role email');
+        if(!user){
+            handleHttpError(res,"USER_NOT_EXISTS",404);
+            return
+        }
+        const hashPassword = user.password;
+        const check = await compare(req.password,hashPassword);
+
+        if(!check){
+            handleHttpError(res,"PASSWORD_INVALID",401);
+            return
+        }
+
+        user.set('password', undefined, {strict:false});
+        const data = {
+            token: await signToken(user),
+            user
+        }
+        res.send({data});
+
+    } catch (error) {
+        handleHttpError(res,"ERROR_LOGIN_CONTROLLER");
+    }
+}
+
+module.exports = {registerController, loginController}

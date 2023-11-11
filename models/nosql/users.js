@@ -16,7 +16,7 @@ const userScheme = new mongoose.Schema(
             type:String
         },
         role:{
-            type:["patient","physician","staff","admin"],
+            type:String,
             default: "patient"
         }
     },
