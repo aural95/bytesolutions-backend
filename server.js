@@ -12,8 +12,15 @@ connectDB();
 //start server
 const app = express();
 
-app.use(cors({ origin: "http://localhost:4200" }));
+app.use(cors());
 
+app.get('/', (req, res) => {
+  res.json({
+      "message": "It is working!!"
+  })
+})
+
+require('./app/routes/project.routes')(app)
 
 app.listen(4000, function check(error) {
   if (error) {
