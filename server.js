@@ -1,7 +1,6 @@
 require("dotenv").config(); 
 const express = require("express");
 const connectDB = require("./config/db"); // Function to connect to our database
-const routes = require("./routes/index");
 const cors = require("cors");
 const mongoose = require("mongoose");
 
@@ -21,7 +20,7 @@ app.get('/', (req, res) => {
   })
 })
 
-require('./app/routes/project.routes')(app)
+require('./app/routes/project.route')(app)
 
 app.listen(4000, function check(error) {
   if (error) {

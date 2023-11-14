@@ -1,7 +1,7 @@
 const express = require ("express");
 const router = express.Router();
-const { validatorRegister, validatorLogin} = require ('../validators/auth');
-const { registerController, loginController } = require ('../controllers/auth');
+const { validatorRegister, validatorLogin} = require ('../validators/auth.validator');
+const { registerController, loginController } = require ('../controllers/auth.controller');
 //here all routes are in http://localhost:4000/auth
 
 //registration
