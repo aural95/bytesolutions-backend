@@ -14,8 +14,14 @@ connectDB();
 const app = express();
 
 app.use(cors());
-app.use(express.json());
-app.use(routes);
+
+app.get('/', (req, res) => {
+  res.json({
+      "message": "It is working!!"
+  })
+})
+
+require('./app/routes/project.routes')(app)
 
 app.listen(4000, function check(error) {
   if (error) {

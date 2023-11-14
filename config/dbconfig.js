@@ -1,4 +1,4 @@
 module.exports = {
-    "ATLASDB": "mongodb+srv://docapcentennialcollege:docapmongodb@docappdatabase.e3o614w.mongodb.net/?retryWrites=true&w=majority",
+    "ATLASDB": "mongodb+srv://llizara1:TeFIvC7yFpIkcY3U@cluster0.cxjnwo2.mongodb.net/bytesolutions?retryWrites=true&w=majority",
     "SECRETKEY": "LoveMongoDB@$!4"
 }
