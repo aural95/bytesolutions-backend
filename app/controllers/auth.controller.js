@@ -1,7 +1,7 @@
 const {matchedData} = require('express-validator');
 const {encrypt, compare} = require('../utils/handlePassword');
 const {signToken} = require('../utils/handleJWT');
-const {usersModel} = require('../models');
+const {usersModel} = require('../../app/models/users.model');
 const {handleHttpError} = require('../utils/handleError');
 
 const registerController = async (req, res) =>{
