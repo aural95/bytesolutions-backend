@@ -13,6 +13,7 @@ connectDB();
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
 app.get('/', (req, res) => {
   res.json({
@@ -21,6 +22,7 @@ app.get('/', (req, res) => {
 })
 
 require('./app/routes/project.route')(app)
+app.use(require("./app/routes/auth.route"));
 
 app.listen(4000, function check(error) {
   if (error) {

@@ -1,7 +1,7 @@
 const {matchedData} = require('express-validator');
 const {encrypt, compare} = require('../utils/handlePassword');
 const {signToken} = require('../utils/handleJWT');
-const {usersModel} = require('../../app/models/users.model');
+const userSchema = require('../../app/models/users.model');
 const {handleHttpError} = require('../utils/handleError');
 
 const registerController = async (req, res) =>{
@@ -9,7 +9,7 @@ const registerController = async (req, res) =>{
         req= matchedData(req);
         const password = await encrypt(req.password);
         const body = {...req, password}
-        const dataUser = await usersModel.create(body);
+        const dataUser = await userSchema.create(body);
         dataUser.set("password", undefined, {strict:false});
         
         const data = {
@@ -19,6 +19,7 @@ const registerController = async (req, res) =>{
         res.status(201);
         res.send({data});
     } catch (error) {
+        console.log(error);
         handleHttpError(res, "ERROR_REGISTER_CONTROLLER");
     }
 }
@@ -26,7 +27,7 @@ const registerController = async (req, res) =>{
 const loginController = async (req,res)=>{
     try {
         req = matchedData(req);
-        const user = await usersModel.findOne({email:req.email}).select('password name role email');
+        const user = await userSchema.findOne({email:req.email}).select('password fullname id_role email gender healthcard');
         if(!user){
             handleHttpError(res,"USER_NOT_EXISTS",404);
             return
@@ -47,6 +48,7 @@ const loginController = async (req,res)=>{
         res.send({data});
 
     } catch (error) {
+        console.log(error);
         handleHttpError(res,"ERROR_LOGIN_CONTROLLER");
     }
 }

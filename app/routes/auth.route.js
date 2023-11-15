@@ -5,9 +5,9 @@ const { registerController, loginController } = require ('../controllers/auth.co
 //here all routes are in http://localhost:4000/auth
 
 //registration
-router.post('/register',validatorRegister, registerController);
+router.post('/auth/register',validatorRegister, registerController);
 
 //login
-router.post('/login',validatorLogin, loginController);
+router.post('/auth/login',validatorLogin, loginController);
 
 module.exports=router;
