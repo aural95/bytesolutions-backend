@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 const roleSchema = new Schema({
-  name: String,
+  name: String
 }, {
   timestamps: true
 },);
