@@ -31,9 +31,9 @@ var userSchema = new Schema(
     },
   }, 
   {
-    timestamps: true
-  },
-  { collection: "users" }
+    timestamps: true,
+    collection: "users"
+  }
 );
 
 
