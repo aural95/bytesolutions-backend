@@ -8,7 +8,7 @@ var userSchema = new Schema(
       required: true,
       unique: true,
     },
-    id_role: { type: Schema.Types.ObjectId, ref: 'roles' },
+    id_role: { type: String, ref: 'roles' },
     fullname: {
       type: String,
       required: true,
@@ -29,6 +29,9 @@ var userSchema = new Schema(
       type: String,
       required: true,
     },
+    specialty: { 
+      type: String, 
+      required: false }, 
   }, 
   {
     timestamps: true
