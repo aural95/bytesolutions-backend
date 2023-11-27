@@ -8,6 +8,8 @@ module.exports = (app) =>{
     app.get('/users', users.findAll);
 
     //role route endpoints
+    app.get('/api/users/physicians/:specialty', users.findPhysiciansBySpecialty);
+
     const roles = require('../controllers/roles.controller');
     app.get('/roles', roles.findAll);
 
