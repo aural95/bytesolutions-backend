@@ -15,6 +15,7 @@ const registerController = async (req, res) =>{
         const body = {...req, password}
         /*creates a user in the DB with the body variable information (password encrypted) and copy the 
         user information in dataUser variable*/
+        console.log(body);
         const dataUser = await userSchema.create(body);
         //sets the password within dataUser variable to undefined
         dataUser.set("password", undefined, {strict:false});
@@ -22,7 +23,8 @@ const registerController = async (req, res) =>{
         //send response with JWT token signed and user information
         const data = {
             token: await signToken(dataUser),
-            user: dataUser
+            user: dataUser,
+            status:true
         }
         res.status(201);
         res.send({data});
