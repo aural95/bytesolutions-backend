@@ -6,6 +6,8 @@ module.exports = (app) =>{
     //user route endpoints
     const users = require('../controllers/users.controller');
     app.get('/users', users.findAll);
+    app.put('/user/:id', users.editOne);
+    app.delete('/users/:id', users.deleteOne);
 
     //role route endpoints
     const roles = require('../controllers/roles.controller');
