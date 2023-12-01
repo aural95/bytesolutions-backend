@@ -10,6 +10,8 @@ module.exports = (app) =>{
     app.delete('/users/:id', users.deleteOne);
 
     //role route endpoints
+    app.get('/api/users/physicians/:specialty', users.findPhysiciansBySpecialty);
+
     const roles = require('../controllers/roles.controller');
     app.get('/roles', roles.findAll);
 
