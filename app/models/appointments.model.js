@@ -33,11 +33,13 @@ var appointmentSchema = new Schema(
             default: false,
         },
         physician_email: {
-            type: String,
+            type: Schema.Types.ObjectId,
+            ref: 'users',
             required: true,
         },
         patient_email: {
-            type: String,
+            type: Schema.Types.ObjectId,
+            ref: 'users',
             required: true,
         },
         physician_specialty: {
