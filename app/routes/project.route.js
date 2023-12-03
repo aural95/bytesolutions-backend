@@ -22,3 +22,4 @@ module.exports = (app) => {
   const chats = require("../controllers/chats.controller");
  
 //module.exports = router;
+}
