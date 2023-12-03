@@ -40,6 +40,10 @@ var appointmentSchema = new Schema(
             type: String,
             required: true,
         },
+        physician_specialty: {
+            type: String,
+            required: true,
+        },
     },
     {
         timestamps: true

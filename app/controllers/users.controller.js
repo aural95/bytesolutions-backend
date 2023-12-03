@@ -21,6 +21,23 @@ exports.findAll =(req, res) =>{
     })
 }
 
+// Filtering user doctors by specialty 
+exports.findPhysiciansBySpecialty = (req, res) => {
+    const { specialty } = req.params;
+    console.log("entering find function");
+    Users.find({ id_role: 'physician', specialty: specialty })
+      .then(users => {
+        res.json(users);
+      })
+      .catch(err => {
+        console.log(err);
+        res.status(500).send({
+          message: 'Something went wrong!',
+          error: err
+        });
+      });
+  };
+
 exports.deleteOne=async(req, res) =>{
     try{
         const userToDelete = await Users.findByIdAndDelete(req.params.id);
@@ -58,4 +75,3 @@ exports.editOne=async(req, res) =>{
     }
     
 }
-
