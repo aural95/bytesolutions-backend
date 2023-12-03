@@ -41,7 +41,7 @@ exports.findPhysiciansBySpecialty = (req, res) => {
 exports.deleteOne=async(req, res) =>{
     try{
         const userToDelete = await Users.findByIdAndDelete(req.params.id);
-        console.log(userToDelete);
+
         res.send(userToDelete);
     }catch(err){
         res.status(500).send(err.message);
@@ -49,6 +49,29 @@ exports.deleteOne=async(req, res) =>{
 }
 
 exports.editOne=async(req, res) =>{
-    console.log(req.params.id);
-    res.send(req.params.id);
+
+    const userToEdit= await Users.findById(req.params.id);
+    //Search if the user exists
+
+    if(!userToEdit){
+        return res.status(404).send("User not found...");
+    }
+    //Search if the user id match between the current object and the user to update
+    if (userToEdit._id.toString() !== req.params.id)
+    return res.status(401).send("User update failed. Not authorized...");
+
+    const { fullname, healthcard } = req.body;
+
+    try{
+        const updatedUser = await Users.findByIdAndUpdate(
+            req.params.id,
+            { fullname, healthcard },
+            { new: true }
+        );
+
+        res.send(updatedUser);
+    }catch(err){
+        res.status(500).send(err.message);
+    }
+    
 }
