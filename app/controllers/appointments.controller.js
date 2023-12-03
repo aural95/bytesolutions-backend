@@ -8,7 +8,7 @@ const END_TIME_HOUR=17;
 exports.findAll = (req, res) => {
     Appointments.find()
         .populate('physician_email', 'fullname specialty')
-        .sort({ date: 'desc' })
+        .sort({ date: 'desc', start_time: 'asc' })
         .then(apmnt => {
             res.send(apmnt)
         }
@@ -150,7 +150,7 @@ exports.findAllByPatient = (req, res) => {
     Appointments.find({ patient_email: new mongoose.Types.ObjectId(patientId), is_booked: true })
         .populate('physician_email', 'fullname specialty')
         .populate({ path: 'patient_email', select: 'fullname' })
-        .sort({ date: 'desc' })
+        .sort({ date: 'desc', start_time: 'asc' })
         .then(apmnt => {
             if (!apmnt || apmnt.length === 0) {
                 return res.status(404).send({
@@ -179,7 +179,7 @@ exports.findAllByDoctor = (req, res) => {
         //.populate({path: 'physician_email',select: 'fullname'})
         .populate('physician_email', 'fullname specialty')
         .populate({ path: 'patient_email', select: 'fullname' })
-        .sort({ date: 'desc' })
+        .sort({ date: 'desc', start_time: 'asc' })
         .then(apmnt => {
             if (!apmnt || apmnt.length === 0) {
                 return res.status(404).send({
