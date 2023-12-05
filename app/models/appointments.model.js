@@ -11,7 +11,8 @@ const Counter = mongoose.model('counter', counterSchema);
 // Appointment Schema
 var appointmentSchema = new Schema(
     {
-        id_appointment: { type: Number, required: true, unique: true, default: -1 },
+        //id_appointment was removed because it was not in use
+
         date: {
             type: String,
             required: true,
@@ -40,37 +41,15 @@ var appointmentSchema = new Schema(
         patient_email: {
             type: Schema.Types.ObjectId,
             ref: 'users',
-            required: true,
+            required: false,
         },
-        physician_specialty: {
-            type: String,
-            required: true,
-        },
+        //physician_specialty field is not needed due to we are referring in the physician_email to the objectID,with the _id of the physician is possible to get the specialty
+
     },
     {
         timestamps: true
     },
     { collection: "appointments" }
 );
-
-// Middleware to auto-increment id_appointment
-appointmentSchema.pre('save', function (next) {
-    const doc = this;
-    Counter.findByIdAndUpdate(
-        { _id: 'id_appointment' },
-        { $inc: { sequence_value: 1 } },
-        { new: true, upsert: true }
-    )
-        .then(counter => {
-            doc.id_appointment = counter.sequence_value;
-            next();
-        })
-        .catch(error => {
-            next(error);
-        });
-});
-
-
-
 
 module.exports = mongoose.model("appointments", appointmentSchema);
