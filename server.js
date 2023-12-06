@@ -13,7 +13,7 @@ connectDB();
 const app = express();
 
 app.use(cors());
-
+app.use(express.json());
 app.get('/', (req, res) => {
   res.json({
       "message": "It is working!!"
@@ -29,4 +29,6 @@ app.listen(4000, function check(error) {
     console.log('Server Started and listening in port 4000');
   }
 });
+
+
 

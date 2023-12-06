@@ -9,7 +9,11 @@ module.exports = (app) =>{
 
     const roles = require('../controllers/roles.controller');
     const appointments = require('../controllers/appointments.controller');
+
+
     const chats = require('../controllers/chats.controller');
 }
 
 //module.exports = router;
+
+    //app.post('/api/appointments', appointments.saveappointment); - linea 12

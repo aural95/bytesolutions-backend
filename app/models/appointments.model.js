@@ -39,17 +39,15 @@ var appointmentSchema = new Schema(
         patient_email: {
             type: String,
             required: true,
-        },
-        physician_specialty: {
-            type: String,
-            required: true,
-        },
+        }
     },
     {
         timestamps: true
     },
     { collection: "appointments" }
 );
+
+module.exports = mongoose.model("appointments", appointmentSchema);
 
 // Middleware to auto-increment id_appointment
 appointmentSchema.pre('save', function (next) {

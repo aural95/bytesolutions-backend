@@ -16,7 +16,7 @@ exports.findAll =(req, res) =>{
 exports.findPhysiciansBySpecialty = (req, res) => {
     const { specialty } = req.params;
     console.log("entering find function");
-    userSchema.find({ id_role: 'physician', specialty: specialty })
+    userSchema.find({specialty: specialty })
       .then(users => {
         res.json(users);
       })
