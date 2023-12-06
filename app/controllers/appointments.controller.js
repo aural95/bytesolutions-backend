@@ -1,4 +1,5 @@
 const Appointments = require('../models/appointments.model')
+const Users = require('../models/users.model')
 const Chat = require('../models/chats.model')
 const mongoose = require('mongoose');
 
@@ -79,12 +80,11 @@ exports.PhysicianLoadSchedule=async(req,res) =>{
     const { physician_email, date } = req.body;
     
     let appointmentList = [];
-    let totalInsertedDocuments = 0;
     let currentAppointmentData;
     let resultFlag = false;
     for (let i = START_TIME_HOUR; i < END_TIME_HOUR; i++) {
         for (let j = 0; j <= 1; j++) {
-            currentAppointmentData = new Appointments();
+            currentAppointmentData= new Appointments();
             currentAppointmentData.physician_email = physician_email;
             currentAppointmentData.date = date;
             currentAppointmentData.start_time =
@@ -93,16 +93,7 @@ exports.PhysicianLoadSchedule=async(req,res) =>{
             currentAppointmentData.end_time =
             (end <10 ? "0"+end : end) + ":" + (j == 1 ? "00" : "30");
             currentAppointmentData.is_Booked = false;
-            currentAppointmentData.patient_email="";
             appointmentList.push(currentAppointmentData);
-            currentAppointmentData.save(function resultHandle(error, result) {
-            if (error) {
-                console.log(error);
-                resultFlag = true;
-            } else {
-                totalInsertedDocuments++;
-            }
-            });
         }
     }
     console.log(appointmentList);
@@ -112,10 +103,21 @@ exports.PhysicianLoadSchedule=async(req,res) =>{
             message: "Error creating appointments",
         });
     } else {
-        res.send({
-            status: true,
-            message: "Created: " + appointmentList.length + " appointments",
-        });
+        try{
+            
+            await Appointments.insertMany(appointmentList).then(result => {
+                console.log(result);
+                res.send({
+                    status: true,
+                    message: result
+                });
+            });
+            
+        }catch(err){
+            res.status(500).send(err.message);
+        }
+        
+        
     }  
 }
 
