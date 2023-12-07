@@ -11,7 +11,6 @@ const Counter = mongoose.model('counter', counterSchema);
 // Appointment Schema
 var appointmentSchema = new Schema(
     {
-        id_appointment: { type: Number, required: true, unique: true, default: -1 },
         date: {
             type: String,
             required: true,
