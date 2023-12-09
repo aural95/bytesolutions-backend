@@ -3,8 +3,8 @@ const Users = require('../models/users.model')
 const Chat = require('../models/chats.model')
 const mongoose = require('mongoose');
 
-const START_TIME_HOUR=9;
-const END_TIME_HOUR=17;
+const START_TIME_HOUR = 9;
+const END_TIME_HOUR = 17;
 
 exports.findAll = (req, res) => {
     Appointments.find()
@@ -53,21 +53,21 @@ exports.findAllAvailabilityByDoctor = (req, res) => {
 }
 
 
-exports.PatientSchedule=async(req, res) =>{
+exports.PatientSchedule = async (req, res) => {
 
-    const appointmentToEdit= await Appointments.findById(req.params.id);
+    const appointmentToEdit = await Appointments.findById(req.params.id);
     //Search if the user exists
 
-    if(!appointmentToEdit){
+    if (!appointmentToEdit) {
         return res.status(404).send("Appointment not found...");
     }
     //Search if the user id match between the current object and the user to update
     if (appointmentToEdit._id.toString() !== req.params.id)
-    return res.status(401).send("Appointment update failed. Not authorized...");
+        return res.status(401).send("Appointment update failed. Not authorized...");
 
     const { is_booked, patient_email } = req.body;
 
-    try{
+    try {
         const updatedAppointment = await Appointments.findByIdAndUpdate(
             req.params.id,
             { is_booked, patient_email },
@@ -75,54 +75,59 @@ exports.PatientSchedule=async(req, res) =>{
         );
 
         res.send(updatedAppointment);
-    }catch(err){
+    } catch (err) {
         res.status(500).send(err.message);
-  }
+    }
 }
 
-exports.PatientCancel=async(req, res) =>{
+exports.PatientCancel = async (req, res) => {
 
-    const appointmentToEdit= await Appointments.findById(req.params.id);
+    const appointmentToEdit = await Appointments.findById(req.params.id);
+    
     //Search if the user exists
-
-    if(!appointmentToEdit){
+    if (!appointmentToEdit) {
         return res.status(404).send("Appointment not found...");
     }
     //Search if the user id match between the current object and the user to update
     if (appointmentToEdit._id.toString() !== req.params.id)
-    return res.status(401).send("Appointment update failed. Not authorized...");
+        return res.status(401).send("Appointment update failed. Not authorized...");
 
 
-    try{
+    try {
         const updatedAppointment = await Appointments.findByIdAndUpdate(
             req.params.id,
-            { is_booked:false, patient_email:"" },
+            { is_booked: false, patient_email: null },
             { new: true }
         );
+        res.send({
+            success: true,
+            message: 'Appointment cancelled',
+            data: updatedAppointment,
+        });
 
-        res.send(updatedAppointment);
-    }catch(err){
+
+    } catch (err) {
         res.status(500).send(err.message);
     }
-    
+
 }
 
-exports.PhysicianLoadSchedule=async(req,res) =>{
+exports.PhysicianLoadSchedule = async (req, res) => {
     const { physician_email, date } = req.body;
-    
+
     let appointmentList = [];
     let currentAppointmentData;
     let resultFlag = false;
     for (let i = START_TIME_HOUR; i < END_TIME_HOUR; i++) {
         for (let j = 0; j <= 1; j++) {
-            currentAppointmentData= new Appointments();
+            currentAppointmentData = new Appointments();
             currentAppointmentData.physician_email = physician_email;
             currentAppointmentData.date = date;
             currentAppointmentData.start_time =
-            (i < 10 ? "0"+i : i) + ":" + (j == 0 ? "00" : "30");
+                (i < 10 ? "0" + i : i) + ":" + (j == 0 ? "00" : "30");
             var end = i + j;
             currentAppointmentData.end_time =
-            (end <10 ? "0"+end : end) + ":" + (j == 1 ? "00" : "30");
+                (end < 10 ? "0" + end : end) + ":" + (j == 1 ? "00" : "30");
             currentAppointmentData.is_Booked = false;
             appointmentList.push(currentAppointmentData);
         }
@@ -134,8 +139,8 @@ exports.PhysicianLoadSchedule=async(req,res) =>{
             message: "Error creating appointments",
         });
     } else {
-        try{
-            
+        try {
+
             await Appointments.insertMany(appointmentList).then(result => {
                 console.log(result);
                 res.send({
@@ -143,11 +148,11 @@ exports.PhysicianLoadSchedule=async(req,res) =>{
                     message: result
                 });
             });
-            
-        }catch(err){
+
+        } catch (err) {
             res.status(500).send(err.message);
         }
-    }  
+    }
 }
 
 exports.findOneById = (req, res) => {
