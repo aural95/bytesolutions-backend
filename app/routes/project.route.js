@@ -13,12 +13,6 @@ module.exports = (app) => {
   const roles = require("../controllers/roles.controller");
   app.get("/roles", roles.findAll);
   
-  const appointments = require("../controllers/appointments.controller");
-  app.get("/appointments", appointments.findAll);
-  app.post("/appointments/load", appointments.PhysicianLoadSchedule);
-  app.put("/appointments/schedule/:id", appointments.PatientSchedule);
-  app.put("/appointments/cancel/:id", appointments.PatientCancel);
-  
   const chats = require("../controllers/chats.controller");
  
 //module.exports = router;
