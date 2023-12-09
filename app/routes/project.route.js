@@ -6,7 +6,7 @@ module.exports = (app) => {
   app.get("/users", users.findAll);
   app.put("/users/:id", users.editOne);
   app.delete("/users/:id", users.deleteOne);
-  app.get('/api/users/physicians/:specialty', users.findPhysiciansBySpecialty);
+  app.get('/users/physicians/:specialty', users.findPhysiciansBySpecialty);
   
   //role route endpoints
   const roles = require("../controllers/roles.controller");
