@@ -2,7 +2,6 @@
 // const router = express.Router();
 
 module.exports = (app) => {
-  //user route endpoints
   const users = require("../controllers/users.controller");
   app.get("/users", users.findAll);
   app.put("/users/:id", users.editOne);
@@ -14,6 +13,5 @@ module.exports = (app) => {
   app.get("/roles", roles.findAll);
   
   const chats = require("../controllers/chats.controller");
- 
-//module.exports = router;
 }
+

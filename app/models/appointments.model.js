@@ -12,7 +12,6 @@ const Counter = mongoose.model('counter', counterSchema);
 var appointmentSchema = new Schema(
     {
         //id_appointment was removed because it was not in use
-
         date: {
             type: String,
             required: true,
@@ -44,7 +43,6 @@ var appointmentSchema = new Schema(
             required: false,
         },
         //physician_specialty field is not needed due to we are referring in the physician_email to the objectID,with the _id of the physician is possible to get the specialty
-
     },
     {
         timestamps: true
