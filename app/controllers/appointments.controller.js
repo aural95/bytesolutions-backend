@@ -21,6 +21,38 @@ exports.findAll = (req, res) => {
         })
 }
 
+
+exports.findAllAvailabilityByDoctor = (req, res) => {
+    const doctorId = req.params.doctorId; // Assuming the patient ID is in the request parameters
+    console.log(doctorId);
+    Appointments.find({ physician_email: new mongoose.Types.ObjectId(doctorId), is_booked: false })
+        //.populate({path: 'physician_email',select: 'fullname'})
+        .populate('physician_email', 'fullname specialty')
+        .populate({ path: 'patient_email', select: 'fullname' })
+        .sort({ date: 'desc', start_time: 'asc' })
+        .then(apmnt => {
+            if (!apmnt || apmnt.length === 0) {
+                return res.status(503).send({
+                    success: false,
+                    message: 'Appointments not found for the specified doctor.'
+                });
+            }
+            res.send({
+                success: true,
+                message: 'Appointments retrieved successfully.',
+                data: apmnt,
+            });
+        })
+        .catch(err => {
+            res.status(500).send({
+                success: false,
+                message: 'Something went wrong!!',
+                error: err
+            });
+        });
+}
+
+
 exports.PatientSchedule=async(req, res) =>{
 
     const appointmentToEdit= await Appointments.findById(req.params.id);
@@ -45,8 +77,7 @@ exports.PatientSchedule=async(req, res) =>{
         res.send(updatedAppointment);
     }catch(err){
         res.status(500).send(err.message);
-    }
-    
+  }
 }
 
 exports.PatientCancel=async(req, res) =>{
@@ -116,8 +147,6 @@ exports.PhysicianLoadSchedule=async(req,res) =>{
         }catch(err){
             res.status(500).send(err.message);
         }
-        
-        
     }  
 }
 
@@ -174,6 +203,8 @@ exports.findAllByPatient = (req, res) => {
             });
         });
 }
+
+
 exports.findAllByDoctor = (req, res) => {
     const doctorId = req.params.doctorId; // Assuming the patient ID is in the request parameters
     console.log(doctorId);

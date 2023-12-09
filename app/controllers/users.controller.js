@@ -1,5 +1,6 @@
 const Users = require('../models/users.model');
 const Roles = require('../models/roles.model');
+const mongoose = require('mongoose');
 
 exports.findAll =(req, res) =>{
     Users.find({})
@@ -25,7 +26,7 @@ exports.findAll =(req, res) =>{
 exports.findPhysiciansBySpecialty = (req, res) => {
     const { specialty } = req.params;
     console.log("entering find function");
-    Users.find({ id_role: 'physician', specialty: specialty })
+    Users.find({ id_role: new mongoose.Types.ObjectId('655442cd2e26f0a767177f34'), specialty: specialty })
       .then(users => {
         res.json(users);
       })
@@ -73,5 +74,6 @@ exports.editOne=async(req, res) =>{
     }catch(err){
         res.status(500).send(err.message);
     }
-    
+
 }
+
