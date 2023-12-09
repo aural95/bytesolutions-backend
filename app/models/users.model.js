@@ -14,7 +14,7 @@ var userSchema = new Schema(
       required: true,
     },
     birthdate: {
-      type: String,
+      type: Date,
       required: true,
     },
     gender: {
@@ -34,9 +34,9 @@ var userSchema = new Schema(
       required: false }, 
   }, 
   {
-    timestamps: true
-  },
-  { collection: "users" }
+    timestamps: true,
+    collection: "users"
+  }
 );
 
 

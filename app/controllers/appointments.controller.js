@@ -21,7 +21,6 @@ exports.findAll = (req, res) => {
         })
 }
 
-// Find only available appointments:
 
 exports.findAllAvailabilityByDoctor = (req, res) => {
     const doctorId = req.params.doctorId; // Assuming the patient ID is in the request parameters
@@ -53,6 +52,7 @@ exports.findAllAvailabilityByDoctor = (req, res) => {
         });
 }
 
+
 exports.PatientSchedule=async(req, res) =>{
 
     const appointmentToEdit= await Appointments.findById(req.params.id);
@@ -77,7 +77,7 @@ exports.PatientSchedule=async(req, res) =>{
         res.send(updatedAppointment);
     }catch(err){
         res.status(500).send(err.message);
-    } 
+  }
 }
 
 exports.PatientCancel=async(req, res) =>{
@@ -203,6 +203,8 @@ exports.findAllByPatient = (req, res) => {
             });
         });
 }
+
+
 exports.findAllByDoctor = (req, res) => {
     const doctorId = req.params.doctorId; // Assuming the patient ID is in the request parameters
     console.log(doctorId);
