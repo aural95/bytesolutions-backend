@@ -54,23 +54,34 @@ exports.findAllAvailabilityByDoctor = (req, res) => {
 
 
 exports.PatientSchedule = async (req, res) => {
+    const {  patient_email } = req.body;
 
     const appointmentToEdit = await Appointments.findById(req.params.id);
-    //Search if the user exists
+    //Search if the appointment exists
 
     if (!appointmentToEdit) {
         return res.status(404).send("Appointment not found...");
     }
-    //Search if the user id match between the current object and the user to update
-    if (appointmentToEdit._id.toString() !== req.params.id)
+    //Search if the appointment id match between the current object and the appointment to update
+    if (appointmentToEdit._id.toString() !== req.params.id){
+        return res.status(401).send("Appointment update failed. Not authorized...");
+    } 
+    const patientRequestAppointment = await Users.findById(patient_email);
+    console.log(patientRequestAppointment);
+    //Search if the patient exists
+
+    if (!patientRequestAppointment) 
+        return res.status(404).send("Patient requesting appointment does not exist...");
+    
+    //Search if the user id match between the current object and the patient to update
+    if (patientRequestAppointment._id.toString() !== patient_email)
         return res.status(401).send("Appointment update failed. Not authorized...");
 
-    const { is_booked, patient_email } = req.body;
 
     try {
         const updatedAppointment = await Appointments.findByIdAndUpdate(
             req.params.id,
-            { is_booked, patient_email },
+            { is_booked:true, patient_email:patientRequestAppointment._id },
             { new: true }
         );
 
