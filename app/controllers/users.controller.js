@@ -1,7 +1,9 @@
+// Import necessary modules and models
 const Users = require('../models/users.model');
 const Roles = require('../models/roles.model');
 const mongoose = require('mongoose');
 
+// Controller method to find all users with role information
 exports.findAll = (req, res) => {
     Users.find({})
         .populate({
@@ -23,7 +25,7 @@ exports.findAll = (req, res) => {
         })
 }
 
-// Filtering user doctors by specialty 
+// Controller method to find physicians by specialty
 exports.findPhysiciansBySpecialty = (req, res) => {
     const { specialty } = req.params;
     Users.find({ id_role: new mongoose.Types.ObjectId('655442cd2e26f0a767177f34'), specialty: specialty })
@@ -39,6 +41,7 @@ exports.findPhysiciansBySpecialty = (req, res) => {
         });
 };
 
+//Controller method to delete a user by ID
 exports.deleteOne = async (req, res) => {
     try {
         const userToDelete = await Users.findByIdAndDelete(req.params.id);
@@ -49,6 +52,7 @@ exports.deleteOne = async (req, res) => {
     }
 }
 
+//Controller method to edit a user by ID
 exports.editOne = async (req, res) => {
 
     const userToEdit = await Users.findById(req.params.id);

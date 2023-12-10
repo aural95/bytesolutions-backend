@@ -1,3 +1,4 @@
+//Middleware for handling the results of Express-Validator validation.
 const {validationResult} = require('express-validator');
 
 const validateResults = (req,res,next)=>{

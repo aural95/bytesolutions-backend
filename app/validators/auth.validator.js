@@ -1,3 +1,4 @@
+//Module providing validators for user registration and login using Express-Validator.
 const {check} = require('express-validator');
 const validateResults = require('../utils/handleValidator');
 

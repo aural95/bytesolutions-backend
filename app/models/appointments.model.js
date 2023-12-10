@@ -1,17 +1,10 @@
+// Import the necessary modules from the mongoose library
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
-// Counter Schema
-const counterSchema = new Schema({
-    _id: { type: String, required: true },
-    sequence_value: { type: Number, default: 1 },
-});
-const Counter = mongoose.model('counter', counterSchema);
-
-// Appointment Schema
+// Define the Appointmen Schema using the Schema constructor from mongoose
 var appointmentSchema = new Schema(
     {
-        //id_appointment was removed because it was not in use
         date: {
             type: String,
             required: true,
@@ -42,7 +35,6 @@ var appointmentSchema = new Schema(
             ref: 'users',
             required: false,
         },
-        //physician_specialty field is not needed due to we are referring in the physician_email to the objectID,with the _id of the physician is possible to get the specialty
     },
     {
         timestamps: true

@@ -1,3 +1,4 @@
+// Import necessary modules and models
 const { handleHttpError } = require("../utils/handleError");
 const roleSchema = require ('../models/roles.model.js');
 

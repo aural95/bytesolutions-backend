@@ -1,3 +1,4 @@
+//Module for handling password encryption and verification using bcryptjs.
 const bcryptjs = require ('bcryptjs');
 
 //Encrypt plain password

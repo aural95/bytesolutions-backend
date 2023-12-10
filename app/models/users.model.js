@@ -1,6 +1,8 @@
+// Import the necessary modules from the mongoose library
 var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
+// Define the User Schema using the Schema constructor from mongoose
 var userSchema = new Schema(
   {
     email: {

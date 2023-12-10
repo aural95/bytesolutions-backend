@@ -1,3 +1,4 @@
+// Import necessary modules and models
 const usersModel = require('../models/users.model');
 const { handleHttpError } = require ('../utils/handleError');
 const { verifyToken } = require('../utils/handleJWT');

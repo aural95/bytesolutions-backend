@@ -1,3 +1,4 @@
+// Import necessary modules and models
 const {matchedData} = require('express-validator');
 const {encrypt, compare} = require('../utils/handlePassword');
 const {signToken} = require('../utils/handleJWT');

@@ -1,5 +1,8 @@
+// Import necessary modules and models
 const Roles = require('../models/roles.model')
 
+
+//Return all the roles
 exports.findAll =(req, res) =>{
     Roles.find()
         .exec()
