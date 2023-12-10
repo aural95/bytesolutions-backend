@@ -24,8 +24,8 @@ exports.findAll = (req, res) => {
 
 exports.findAllAvailabilityByDoctor = (req, res) => {
     const doctorId = req.params.doctorId; // Assuming the patient ID is in the request parameters
-    console.log(doctorId);
-    Appointments.find({ physician_email: new mongoose.Types.ObjectId(doctorId), is_booked: false })
+    const date = req.params.date;
+    Appointments.find({ physician_email: new mongoose.Types.ObjectId(doctorId), date: date, is_booked: false })
         //.populate({path: 'physician_email',select: 'fullname'})
         .populate('physician_email', 'fullname specialty')
         .populate({ path: 'patient_email', select: 'fullname' })
@@ -55,10 +55,10 @@ exports.findAllAvailabilityByDoctor = (req, res) => {
 
 exports.PatientSchedule = async (req, res) => {
     const {  patient_email } = req.body;
+    console.log(patient_email);
 
     const appointmentToEdit = await Appointments.findById(req.params.id);
     //Search if the appointment exists
-
     if (!appointmentToEdit) {
         return res.status(404).send("Appointment not found...");
     }
